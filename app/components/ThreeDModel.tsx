@@ -10,8 +10,7 @@ interface ModelProps {
 }
 
 function Model({ url = "/modelo.gltf" }: ModelProps) {
-  // Corrigir tipagem
-  const { scene } = useGLTF(url) as any;
+  const gltf = useGLTF(url); // deixa o TypeScript inferir o tipo
   const ref = useRef<THREE.Group>(null);
 
   // Animação de flutuação
@@ -22,7 +21,7 @@ function Model({ url = "/modelo.gltf" }: ModelProps) {
     }
   });
 
-  return <primitive ref={ref} object={scene} scale={1} />;
+  return <primitive ref={ref} object={gltf.scene} scale={1} />;
 }
 
 export default function ThreeDModel() {
