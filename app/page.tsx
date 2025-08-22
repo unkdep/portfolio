@@ -50,18 +50,21 @@ const translations = {
     ),
     experienceTitle: "Experiência Profissional",
     experienceRole: "Estagiário",
-    experienceCompany: "Empresa AGCO Corporation | Mar 2024 - Mar 2025",
+    experienceCompany: "AGCO Corporation",
+    experienceLocation: "Mogi das Cruzes - SP, Brasil",
+    experienceType: "Estágio · Presencial",
+    experienceDates: "Mar de 2024 - Mar de 2025 · 1 ano",
     experienceDesc: "Suporte no desenvolvimento de novas tecnologias.",
     techTitle: "Tecnologias",
     techList: [
       "React",
       "Next.js",
       "Java",
-      "Spring Boot",
+      "HTML5",
+      "CSS3",
       "Node.js",
       "TypeScript",
       "SQL",
-      "NoSQL",
     ],
     projectsTitle: "Projetos",
     project1Name: "Projeto 1",
@@ -116,18 +119,21 @@ const translations = {
     ),
     experienceTitle: "Professional Experience",
     experienceRole: "Intern",
-    experienceCompany: "AGCO Corporation | Mar 2024 - Mar 2025",
+    experienceCompany: "AGCO Corporation",
+    experienceLocation: "Mogi das Cruzes - SP, Brazil",
+    experienceType: "Full-time · On-site",
+    experienceDates: "Mar 2024 - Mar 2025 · 1 year",
     experienceDesc: "Support in developing new technologies.",
     techTitle: "Technologies",
     techList: [
       "React",
       "Next.js",
       "Java",
-      "Spring Boot",
+      "HTML5",
+      "CSS3",
       "Node.js",
       "TypeScript",
       "SQL",
-      "NoSQL",
     ],
     projectsTitle: "Projects",
     project1Name: "Project 1",
@@ -289,34 +295,52 @@ export default function Início() {
           </motion.div>
         </section>
 
-        {/* EXPERIÊNCIA PROFISSIONAL */}
-        <section
-          id="experience"
-          className="py-20 bg-gray-900/70 backdrop-blur-md relative z-10"
+              {/* EXPERIÊNCIA PROFISSIONAL */}
+      <section
+        id="experience"
+        className="py-20 bg-gray-900/70 backdrop-blur-md relative z-10"
+      >
+        <motion.h3
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-3xl font-semibold text-center mb-12"
         >
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-3xl font-semibold text-center mb-12"
-          >
-            {t.experienceTitle}
-          </motion.h3>
+          {t.experienceTitle}
+        </motion.h3>
 
-          <div className="max-w-4xl mx-auto flex flex-col gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-gray-800 p-6 rounded-xl shadow-lg"
-            >
-              <h4 className="text-xl font-semibold">{t.experienceRole}</h4>
-              <p className="text-gray-400">{t.experienceCompany}</p>
-              <p className="mt-2 text-gray-300">{t.experienceDesc}</p>
-            </motion.div>
-          </div>
-        </section>
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="bg-gray-800 p-8 rounded-2xl shadow-lg flex flex-col md:flex-row items-center gap-6 hover:scale-105 transition"
+          >
+            {/* Logo da empresa */}
+            <img
+              src="/logo-agco.png"
+              alt="AGCO Corporation"
+              className="w-32 h-32 object-contain rounded-lg shadow-lg"
+            />
+
+            {/* Informações */}
+            <div className="flex-1">
+              <h4 className="text-2xl font-bold mb-1">Estagiário</h4>
+              <p className="text-blue-400 font-medium mb-1">AGCO Corporation · Estágio</p>
+              <p className="text-gray-400 mb-1">Mogi das Cruzes - SP, Brasil · Presencial</p>
+              <p className="text-gray-400 mb-3">Mar de 2024 - Mar de 2025 · 1 ano</p>
+
+              {/* Skills / áreas */}
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-500 rounded-full text-white text-sm">Ciência de Dados e Análise</span>
+                <span className="px-3 py-1 bg-blue-500 rounded-full text-white text-sm">Projetos com Power Platform</span>
+                <span className="px-3 py-1 bg-blue-500 rounded-full text-white text-sm">Engenharia de Processos</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
         {/* TECNOLOGIAS */}
         <section id="tech" className="py-20 relative z-10">
@@ -397,34 +421,84 @@ export default function Início() {
           </div>
         </section>
 
-        {/* CONTATO */}
-        <section id="contact" className="py-20 text-center relative z-10">
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-3xl font-semibold mb-6"
-          >
-            {t.contactTitle}
-          </motion.h3>
+{/* CONTATO MODERNIZADO DISCRETO */}
+<section
+  id="contact"
+  className="py-20 bg-gray-900/70 backdrop-blur-md relative z-10 rounded-xl"
+>
+  <motion.h3
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+    className="text-3xl font-semibold text-center mb-12 text-white"
+  >
+    {t.contactTitle}
+  </motion.h3>
 
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a
-              href="mailto:fristmts@gmail.com"
-              className="flex items-center gap-2 border border-gray-600 hover:border-indigo-400 px-6 py-3 rounded-lg transition"
-            >
-              <Mail className="w-5 h-5" /> {t.contactEmail}
-            </a>
-            <a
-              href="https://www.linkedin.com/in/rafaelunk"
-              target="_blank"
-              className="flex items-center gap-2 border border-gray-600 hover:border-indigo-400 px-6 py-3 rounded-lg transition"
-            >
-              <Linkedin className="w-5 h-5" /> {t.contactLinkedin}
-            </a>
-          </div>
-        </section>
+  <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-center justify-center">
+    {/* Formulário */}
+<motion.form
+  initial={{ opacity: 0, scale: 0.95 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.6 }}
+  className="w-full md:w-1/2 bg-black p-8 rounded-xl shadow-lg flex flex-col gap-4"
+  onSubmit={(e) => {
+    e.preventDefault();
+    alert("Mensagem enviada!");
+  }}
+>
+  <input
+    type="text"
+    placeholder="Seu nome"
+    required
+    className="px-4 py-3 bg-black border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+  />
+  <input
+    type="email"
+    placeholder="Seu e-mail"
+    required
+    className="px-4 py-3 bg-black border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+  />
+  <textarea
+    placeholder="Sua mensagem"
+    required
+    rows={5}
+    className="px-4 py-3 bg-black border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+  />
+  <button
+    type="submit"
+    className="px-6 py-3 mt-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-semibold rounded-lg shadow transition"
+  >
+    Enviar Mensagem
+  </button>
+</motion.form>
+
+
+    {/* Links de Contato */}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6 }}
+      className="flex flex-col gap-4 items-center md:items-start"
+    >
+      <a
+        href="mailto:fristmts@gmail.com"
+        className="flex items-center gap-3 px-6 py-3 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition"
+      >
+        <Mail className="w-6 h-6" /> E-mail
+      </a>
+      <a
+        href="https://www.linkedin.com/in/rafaelunk"
+        target="_blank"
+        className="flex items-center gap-3 px-6 py-3 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition"
+      >
+        <Linkedin className="w-6 h-6" /> LinkedIn
+      </a>
+    </motion.div>
+  </div>
+</section>
+
       </main>
     </>
   );
