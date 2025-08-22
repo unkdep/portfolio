@@ -12,7 +12,7 @@ export default function Navbar({ setLang, lang }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "#hero" },
+    { label: "Início", href: "#inicio" },
     { label: "Sobre", href: "#about" },
     { label: "Experiência", href: "#experience" },
     { label: "Tecnologias", href: "#tech" },
