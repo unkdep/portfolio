@@ -1,12 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, FileDown } from "lucide-react";
+import { Github, Linkedin, Mail, FileDown, ArrowUp, ExternalLink } from "lucide-react";
 import ThreeDModel from "./components/ThreeDModel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Navbar from "./components/Navbar";
 
-// Traduções com palavras-chave para destaque
 const translations = {
   pt: {
     nav: ["Início", "Sobre", "Experiência", "Tecnologias", "Projetos", "Contato"],
@@ -158,19 +157,32 @@ const translations = {
 
 export default function Home() {
   const [lang, setLang] = useState<"pt" | "en">("pt");
+  const [showTopBtn, setShowTopBtn] = useState(false);
   const t = translations[lang];
 
   const techs = t.techList;
 
+  const projects = [
+    { name: t.project1Name, desc: t.project1Desc },
+    { name: t.project2Name, desc: t.project2Desc },
+  ];
+
+  // Botão voltar ao topo
+  useEffect(() => {
+    const handleScroll = () => setShowTopBtn(window.scrollY > 300);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <Head>
-        <title>Portfólio | Rafael Es</title>
+        <title>Portfólio | Rafael</title>
         <meta name="description" content="Portfólio de Rafael, desenvolvedor fullstack." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 relative overflow-hidden scroll-smooth">
+      <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 relative overflow-x-hidden scroll-smooth">
         <Navbar lang={lang} setLang={setLang} />
 
         {/* BOTÕES DE IDIOMA */}
@@ -242,7 +254,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* EXPERIÊNCIA PROFISSIONAL */}
+        {/* EXPERIÊNCIA */}
         <section id="experience" className="py-20 bg-gray-900/70 backdrop-blur-md relative z-10">
           <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-3xl font-semibold text-center mb-12">{t.experienceTitle}</motion.h3>
 
@@ -264,7 +276,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* TECNOLOGIAS - CARROSSEL */}
+        {/* TECNOLOGIAS */}
         <section id="tech" className="py-20 relative z-10 overflow-hidden">
           <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-4xl font-bold text-center mb-12">{t.techTitle}</motion.h3>
 
@@ -304,52 +316,58 @@ export default function Home() {
         </section>
 
         {/* PROJETOS */}
-        <section id="projects" className="py-20 bg-gray-900/70 backdrop-blur-md relative z-10">
-          <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-3xl font-semibold text-center mb-12">{t.projectsTitle}</motion.h3>
+        <section id="projects" className="py-20 relative z-10">
+          <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-4xl font-bold text-center mb-12">{t.projectsTitle}</motion.h3>
 
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-              <img src="/projeto1.jpg" alt={t.project1Name} className="w-full h-52 object-cover" />
-              <div className="p-6">
-                <h4 className="text-xl font-semibold">{t.project1Name}</h4>
-                <p className="mt-2 text-gray-300">{t.project1Desc}</p>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-              <img src="/projeto2.jpg" alt={t.project2Name} className="w-full h-52 object-cover" />
-              <div className="p-6">
-                <h4 className="text-xl font-semibold">{t.project2Name}</h4>
-                <p className="mt-2 text-gray-300">{t.project2Desc}</p>
-              </div>
-            </motion.div>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+            {projects.map((project, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative group rounded-2xl overflow-hidden shadow-lg cursor-pointer"
+              >
+                <img
+                  src={`/project${idx + 1}.png`}
+                  alt={project.name}
+                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-black/70 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition duration-300">
+                  <h4 className="text-xl font-semibold mb-2 text-white">{project.name}</h4>
+                  <p className="text-gray-300 text-center px-4">{project.desc}</p>
+                  <a
+                    href="#"
+                    className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded transition text-white flex items-center gap-2"
+                  >
+                    <ExternalLink className="w-4 h-4" /> Ver Projeto
+                  </a>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
         {/* CONTATO */}
-        <section id="contact" className="py-20 bg-gray-900/70 backdrop-blur-md relative z-10 rounded-xl">
-          <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-3xl font-semibold text-center mb-12 text-white">{t.contactTitle}</motion.h3>
+        <section id="contact" className="py-20 text-center relative z-10">
+          <motion.h3 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-3xl font-semibold mb-6">{t.contactTitle}</motion.h3>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">{t.contactText}</p>
 
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-center justify-center">
-            <motion.form initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="w-full md:w-1/2 bg-black p-8 rounded-xl shadow-lg flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); alert("Mensagem enviada!"); }}>
-              <input type="text" placeholder="Seu nome" required className="px-4 py-3 bg-black border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <input type="email" placeholder="Seu e-mail" required className="px-4 py-3 bg-black border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <textarea placeholder="Sua mensagem" required rows={5} className="px-4 py-3 bg-black border border-blue-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-400" />
-              <button type="submit" className="px-6 py-3 mt-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-semibold rounded-lg shadow transition">
-                Enviar Mensagem
-              </button>
-            </motion.form>
-
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="flex flex-col gap-4 items-center md:items-start">
-              <a href="mailto:fristmts@gmail.com" className="flex items-center gap-3 px-6 py-3 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition">
-                <Mail className="w-6 h-6" /> E-mail
-              </a>
-              <a href="https://www.linkedin.com/in/rafaelunk" target="_blank" className="flex items-center gap-3 px-6 py-3 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white transition">
-                <Linkedin className="w-6 h-6" /> LinkedIn
-              </a>
-            </motion.div>
+          <div className="flex flex-wrap justify-center gap-6">
+            <a href="mailto:seuemail@gmail.com" className="px-6 py-3 border border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition">{t.contactEmail}</a>
+            <a href="https://www.linkedin.com/in/rafaelunk" target="_blank" className="px-6 py-3 border border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg transition">{t.contactLinkedin}</a>
           </div>
         </section>
+
+        {/* BOTÃO VOLTAR AO TOPO */}
+        {showTopBtn && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-6 right-6 p-3 rounded-full bg-blue-500 hover:bg-blue-600 shadow-lg z-50 transition"
+          >
+            <ArrowUp className="w-5 h-5 text-white" />
+          </button>
+        )}
       </main>
     </>
   );
