@@ -181,7 +181,7 @@ export default function Home() {
       ),
       link: "https://example.com/barbearia",
       techs: ["Next.js", "TailwindCSS", "React"],
-      image: "/barbearia-thumb.png", // Espaço reservado para a foto do projeto
+      image: "/barbearia-thumb.png",
     },
   ];
 
@@ -209,24 +209,24 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Portfólio | Rafael</title>
+        <title>Portfólio - Rafael</title>
         <meta name="description" content="Portfólio de Rafael, desenvolvedor fullstack." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-6 relative overflow-x-hidden scroll-smooth">
+      <main className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-gray-950 text-white px-6 relative overflow-x-hidden scroll-smooth">
         {/* Navbar com activeSection */}
         <Navbar lang={lang} setLang={setLang} activeSection={activeSection} />
 
-        {/* INÍCIO */}
+        {/* INÍCIO - Sem grid no mobile */}
         <section
           id="inicio"
-          className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 pt-20 relative z-10"
+          className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 pt-20 relative z-10 md:bg-gradient-to-b md:from-gray-900/70 md:to-black/70 md:backdrop-blur-md"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={activeSection === "inicio" ? { opacity: 1, scale: 1 } : { opacity: 0.3, scale: 0.95 }}
             transition={{ duration: 0.6 }}
-            className="shadow-lg rounded-2xl overflow-hidden p-6 md:p-10 bg-gray-900/70 backdrop-blur-md text-center md:text-left flex-1"
+            className="shadow-lg rounded-2xl overflow-hidden p-6 md:p-10 bg-gray-800/90 backdrop-blur-md text-center md:text-left flex-1 md:bg-gray-900/70"
           >
             <h1 className="text-4xl md:text-6xl font-bold">
               {t.heroGreeting}{" "}
@@ -261,7 +261,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={activeSection === "inicio" ? { opacity: 1, scale: 1 } : { opacity: 0.3, scale: 0.95 }}
             transition={{ duration: 0.6 }}
-            className="w-72 h-72 md:w-96 md:h-96 bg-gray-800/50 rounded-2xl flex items-center justify-center shadow-lg mx-auto flex-shrink-0"
+            className="w-72 h-72 md:w-96 md:h-96 bg-gray-800/50 rounded-2xl flex items-center justify-center shadow-lg mx-auto flex-shrink-0 md:bg-gray-800/50"
           >
             <ThreeDModel />
           </motion.div>
@@ -326,10 +326,10 @@ export default function Home() {
           `}</style>
         </section>
 
-        {/* EXPERIÊNCIA - Ondas somente ao redor da grid da info */}
+        {/* EXPERIÊNCIA - Ondas SOMENTE ao redor da grid do estagiário */}
         <section
           id="experience"
-          className="min-h-screen flex flex-col items-center justify-center py-20 bg-gray-900/70 backdrop-blur-md relative z-10"
+          className="min-h-screen flex flex-col items-center justify-center py-20 relative z-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -339,7 +339,7 @@ export default function Home() {
           >
             <h3 className="text-3xl font-semibold text-center mb-12">{t.experienceTitle}</h3>
             <div className="mx-auto max-w-3xl relative">
-              {/* Ondas ao redor da grid */}
+              {/* Ondas ao redor APENAS da grid do estagiário */}
               <div className="absolute -inset-1 rounded-3xl border border-blue-500 pointer-events-none overflow-hidden z-0">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 animate-wave"></div>
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 animate-wave delay-2000"></div>
@@ -418,7 +418,7 @@ export default function Home() {
             <div className="marquee flex gap-16 will-change-transform">
               {[...techs, ...techs].map((tech, idx) => (
                 <div key={`${tech.name}-${idx}`} className="flex flex-col items-center min-w-[140px]">
-                  <div className="w-24 h-24 bg-gray-900/60 backdrop-blur-xl border border-gray-700/40 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-blue-500/40 transition duration-300">
+                  <div className="w-24 h-24 bg-gray-800/60 backdrop-blur-xl border border-gray-700/40 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-blue-500/40 transition duration-300">
                     <img src={tech.icon} alt={tech.name} className="w-12 h-12 object-contain" />
                   </div>
                   <p className="mt-3 text-white text-sm md:text-base">{tech.name}</p>
@@ -467,7 +467,7 @@ export default function Home() {
             {projects.map((project, idx) => (
               <motion.div
                 key={idx}
-                className={`group bg-gray-900/50 backdrop-blur-md rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-800/70 shadow-xl hover:shadow-blue-500/20 transition-all duration-400 overflow-hidden hover:scale-[1.02] ${
+                className={`group bg-gray-800/50 backdrop-blur-md rounded-2xl p-6 border border-gray-700/50 hover:border-blue-500/50 hover:bg-gray-700/70 shadow-xl hover:shadow-blue-500/20 transition-all duration-400 overflow-hidden hover:scale-[1.02] ${
                   !project.name ? "opacity-40 cursor-default" : ""
                 }`}
                 style={{ minHeight: "380px" }}
@@ -490,7 +490,7 @@ export default function Home() {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gray-800 flex items-center justify-center text-gray-500 text-sm rounded-xl">
+                    <div className="w-full h-48 bg-gray-700 flex items-center justify-center text-gray-500 text-sm rounded-xl">
                       Em Breve
                     </div>
                   )}
@@ -547,7 +547,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 50 }}
             animate={activeSection === "contact" ? { opacity: 1, y: 0 } : { opacity: 0.3, y: 20 }}
             transition={{ duration: 0.6 }}
-            className="w-full max-w-md px-6 py-10 relative bg-gray-900/70 backdrop-blur-xl rounded-3xl border border-blue-500 shadow-lg overflow-hidden"
+            className="w-full max-w-md px-6 py-10 relative bg-gray-800/70 backdrop-blur-xl rounded-3xl border border-blue-500 shadow-lg overflow-hidden"
           >
             {/* Linhas estilo ondas sonoras */}
             <div className="absolute inset-0 pointer-events-none">
@@ -570,21 +570,21 @@ export default function Home() {
                 type="text"
                 placeholder="Seu nome"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-gray-800/60 border border-blue-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300"
+                className="w-full px-4 py-3 rounded-xl bg-gray-700/60 border border-blue-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300"
               />
               <motion.input
                 whileFocus={{ scale: 1.03 }}
                 type="email"
                 placeholder="Seu e-mail"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-gray-800/60 border border-blue-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300"
+                className="w-full px-4 py-3 rounded-xl bg-gray-700/60 border border-blue-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300"
               />
               <motion.textarea
                 whileFocus={{ scale: 1.03 }}
                 placeholder="Sua mensagem"
                 required
                 rows={4}
-                className="w-full px-4 py-3 rounded-xl bg-gray-800/60 border border-blue-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 resize-none"
+                className="w-full px-4 py-3 rounded-xl bg-gray-700/60 border border-blue-500 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 resize-none"
               />
               <motion.button
                 type="submit"
