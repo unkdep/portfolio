@@ -1,106 +1,91 @@
+// translations.ts
 export const translations = {
   pt: {
-    hero: {
-      greeting: "Olá, meu nome é",
-      name: "Rafael",
-      role: "Desenvolvedor Fullstack",
-      description:
-        "Apaixonado por tecnologia e desenvolvimento de aplicações modernas, escaláveis e com foco em performance.",
-      cv: "Baixar CV",
-      contact: "Contato",
-    },
-    about: {
-      title: "Olá, meu nome é Rafael\nDesenvolvedor Web",
-      text1: "Sou desenvolvedor fullstack, gosto de transformar ideias em soluções digitais modernas.",
-      text2: "Tenho experiência tanto no front-end quanto no back-end, e estou sempre em busca de aprender novas tecnologias.",
-      text3: "Adoro contribuir em projetos desafiadores e criar experiências digitais únicas.",
-    },
-    experience: {
-      title: "Experiência Profissional",
-      item1: {
-        role: "Estagiário",
-        company: "Empresa AGCO Corporation",
-        period: "Mar 2024 - Mar 2025",
-        description: "Suporte no desenvolvimento de novas tecnologias.",
-        skills: [
-          "Data Science & Analytics",
-          "Projects with Power Platform",
-          "Process Engineering",
-        ],
-      },
-    },
-    technologies: {
-      title: "Tecnologias",
-      list: ["React", "Next.js", "Node.js", "TypeScript", "SQL", "NoSQL"],
-    },
-    projects: {
-      title: "Projetos",
-      project1: {
-        name: "Projeto 1",
-        description: "Aplicação web moderna desenvolvida com React e Node.js.",
-      },
-      project2: {
-        name: "Projeto 2",
-        description: "Sistema de gestão de dados usando SQL.",
-      },
-    },
-    contact: {
-      title: "Entre em Contato",
-      text: "Quer trabalhar comigo ou apenas dizer um oi? Me envie uma mensagem!",
-      email: "Enviar Email",
-      linkedin: "LinkedIn",
-    },
+    nav: ["Início", "Sobre", "Experiência", "Tecnologias", "Projetos", "Contato"],
+    heroGreeting: "Olá, meu nome é",
+    heroRole: "Desenvolvedor Fullstack",
+    heroDescription:
+      "Apaixonado por tecnologia e desenvolvimento de aplicações modernas, escaláveis e com foco em performance. Experiência em Java, Spring Boot, React, Next.js e bancos de dados SQL/NoSQL.",
+    cv: "Baixar CV",
+    contact: "Contato",
+    aboutTitle: "Olá, meu nome é Rafael\nDesenvolvedor Web",
+    aboutText1:
+      "Sou desenvolvedor fullstack, gosto de transformar ideias em soluções digitais modernas.",
+    aboutText2:
+      "Tenho experiência tanto no front-end quanto no back-end, e estou sempre em busca de aprender novas tecnologias.",
+    aboutText3:
+      "Adoro contribuir em projetos desafiadores e criar experiências digitais únicas.",
+    experienceTitle: "Experiência Profissional",
+    experienceRole: "Estagiário",
+    experienceCompany: "AGCO Corporation",
+    experienceLocation: "Mogi das Cruzes - SP, Brasil",
+    experienceType: "Estágio · Presencial",
+    experienceDates: "Mar de 2024 - Mar de 2025 · 1 ano",
+    experienceDesc: "Suporte no desenvolvimento de novas tecnologias.",
+    experienceSkills: [
+      "Ciência de Dados e Análise",
+      "Projetos com Power Platform",
+      "Engenharia de Processos",
+    ],
+    techTitle: "Tecnologias",
+    techList: [
+      { name: "React", icon: "/icon-react.png" },
+      { name: "Next.js", icon: "/icon-nextjs.png" },
+      { name: "Java", icon: "/icon-java.png" },
+      { name: "HTML5", icon: "/icon-html5.png" },
+      { name: "CSS3", icon: "/icon-css3.png" },
+      { name: "Node.js", icon: "/icon-nodejs.png" },
+      { name: "TypeScript", icon: "/icon-typescript.png" },
+      { name: "SQL", icon: "/icon-sql.png" },
+    ],
+    projectsTitle: "Projetos",
+    contactTitle: "Entre em Contato",
+    contactText: "Quer trabalhar comigo ou apenas dizer um oi? Me envie uma mensagem!",
+    contactEmail: "Enviar Email",
+    contactLinkedin: "LinkedIn",
   },
   en: {
-    hero: {
-      greeting: "Hi, my name is",
-      name: "Rafael",
-      role: "Fullstack Developer",
-      description:
-        "Passionate about technology and developing modern, scalable applications focused on performance.",
-      cv: "Download CV",
-      contact: "Contact",
-    },
-    about: {
-      title: "Hi, my name is Rafael\nWeb Developer",
-      text1: "I am a fullstack developer, I enjoy turning ideas into modern digital solutions.",
-      text2: "I have experience in both front-end and back-end, and I am always looking to learn new technologies.",
-      text3: "I love contributing to challenging projects and creating unique digital experiences.",
-    },
-    experience: {
-      title: "Professional Experience",
-      item1: {
-        role: "Intern",
-        company: "AGCO Corporation",
-        period: "Mar 2024 - Mar 2025",
-        description: "Support in developing new technologies.",
-        skills: [
-          "Data Science & Analytics",
-          "Projects with Power Platform",
-          "Process Engineering",
-        ],
-      },
-    },
-    technologies: {
-      title: "Technologies",
-      list: ["React", "Next.js", "Node.js", "TypeScript", "SQL", "NoSQL"],
-    },
-    projects: {
-      title: "Projects",
-      project1: {
-        name: "Project 1",
-        description: "Modern web application developed with React and Node.js.",
-      },
-      project2: {
-        name: "Project 2",
-        description: "Data management system using SQL.",
-      },
-    },
-    contact: {
-      title: "Get in Touch",
-      text: "Want to work with me or just say hi? Send me a message!",
-      email: "Send Email",
-      linkedin: "LinkedIn",
-    },
+    nav: ["Home", "About", "Experience", "Technologies", "Projects", "Contact"],
+    heroGreeting: "Hi, my name is",
+    heroRole: "Fullstack Developer",
+    heroDescription:
+      "Passionate about technology and developing modern, scalable applications focused on performance. Experience in Java, Spring Boot, React, Next.js, and SQL/NoSQL databases.",
+    cv: "Download CV",
+    contact: "Contact",
+    aboutTitle: "Hi, my name is Rafael\nWeb Developer",
+    aboutText1:
+      "I am a fullstack developer, I enjoy turning ideas into modern digital solutions.",
+    aboutText2:
+      "I have experience in both front-end and back-end, and I am always looking to learn new technologies.",
+    aboutText3:
+      "I love contributing to challenging projects and creating unique digital experiences.",
+    experienceTitle: "Professional Experience",
+    experienceRole: "Intern",
+    experienceCompany: "AGCO Corporation",
+    experienceLocation: "Mogi das Cruzes - SP, Brazil",
+    experienceType: "Full-time · On-site",
+    experienceDates: "Mar 2024 - Mar 2025 · 1 year",
+    experienceDesc: "Support in developing new technologies.",
+    experienceSkills: [
+      "Data Science & Analytics",
+      "Power Platform Projects",
+      "Process Engineering",
+    ],
+    techTitle: "Technologies",
+    techList: [
+      { name: "React", icon: "/icon-react.png" },
+      { name: "Next.js", icon: "/icon-nextjs.png" },
+      { name: "Java", icon: "/icon-java.png" },
+      { name: "HTML5", icon: "/icon-html5.png" },
+      { name: "CSS3", icon: "/icon-css3.png" },
+      { name: "Node.js", icon: "/icon-nodejs.png" },
+      { name: "TypeScript", icon: "/icon-typescript.png" },
+      { name: "SQL", icon: "/icon-sql.png" },
+    ],
+    projectsTitle: "Projects",
+    contactTitle: "Get in Touch",
+    contactText: "Want to work with me or just say hi? Send me a message!",
+    contactEmail: "Send Email",
+    contactLinkedin: "LinkedIn",
   },
 };
