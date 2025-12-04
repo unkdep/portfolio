@@ -213,14 +213,17 @@ export default function Home() {
         <meta name="description" content="Portfólio de Rafael, desenvolvedor fullstack." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-h-screen bg-gradient-to-b from-gray-800 via-gray-900 to-gray-950 text-white px-6 relative overflow-x-hidden scroll-smooth">
+      <main
+        className="min-h-screen text-white px-6 relative overflow-x-hidden scroll-smooth"
+        style={{ backgroundColor: "#121212" }} // fundo cinza escuro, mobile e desktop
+      >
         {/* Navbar com activeSection */}
         <Navbar lang={lang} setLang={setLang} activeSection={activeSection} />
 
-        {/* INÍCIO - Sem grid no mobile */}
+        {/* INÍCIO - Removido grid/bg no mobile usando md:bg-gradient e bg-none por padrão */}
         <section
           id="inicio"
-          className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 pt-20 relative z-10 md:bg-gradient-to-b md:from-gray-900/70 md:to-black/70 md:backdrop-blur-md"
+          className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 pt-20 relative z-10 md:bg-gradient-to-b md:from-gray-900/70 md:to-black/70 md:backdrop-blur-md bg-none"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -249,10 +252,10 @@ export default function Home() {
               </a>
             </div>
             <div className="flex gap-6 mt-6 justify-center md:justify-start">
-              <a href="https://github.com/unkdep" target="_blank">
+              <a href="https://github.com/unkdep" target="_blank" rel="noopener noreferrer">
                 <Github className="w-7 h-7 hover:text-indigo-400 transition" />
               </a>
-              <a href="https://www.linkedin.com/in/rafaelunk" target="_blank">
+              <a href="https://www.linkedin.com/in/rafaelunk" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="w-7 h-7 hover:text-indigo-400 transition" />
               </a>
             </div>
@@ -266,6 +269,8 @@ export default function Home() {
             <ThreeDModel />
           </motion.div>
         </section>
+
+        {/* RESTANTE DO CÓDIGO SEM ALTERAÇÕES */}
 
         {/* SOBRE - com ondas circulares ao redor da imagem */}
         <section
@@ -505,9 +510,7 @@ export default function Home() {
                   >
                     {project.name || "Em Breve"}
                   </h4>
-                  <p className="text-gray-300 text-center text-base leading-relaxed">
-                    {typeof project.desc === "string" ? project.desc : project.desc}
-                  </p>
+                  <p className="text-gray-300 text-center text-base leading-relaxed">{typeof project.desc === "string" ? project.desc : project.desc}</p>
                   {project.techs && project.techs.length > 0 && (
                     <div className="flex flex-wrap gap-2 justify-center pt-2">
                       {project.techs.map((tech, tIdx) => (
