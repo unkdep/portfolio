@@ -241,7 +241,7 @@ export default function Home() {
             <p className="mt-6 text-gray-400 leading-relaxed">{t.heroDescription}</p>
             <div className="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
               <a
-                href="http://127.0.0.1:8000/download-cv"
+                href="https://portfolio-backend.onrender.com/download-cv"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded-lg shadow-lg transition"
