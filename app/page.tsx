@@ -241,14 +241,17 @@ export default function Home() {
             <p className="mt-6 text-gray-400 leading-relaxed">{t.heroDescription}</p>
             <div className="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
               <a
-                href="/cv.pdf"
+                href="http://127.0.0.1:8000/download-cv"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded-lg shadow-lg transition"
               >
-                <FileDown className="w-5 h-5" /> {t.cv}
+                <FileDown className="w-5 h-5" />
+                {t.cv}
               </a>
               <a href="mailto:seuemail@gmail.com" className="flex items-center gap-2 border border-gray-600 hover:border-indigo-400 px-5 py-2 rounded-lg transition">
-                <Mail className="w-5 h-5" /> {t.contact}
+                <Mail className="w-5 h-5" />
+                {t.contact}
               </a>
             </div>
             <div className="flex gap-6 mt-6 justify-center md:justify-start">
@@ -269,8 +272,6 @@ export default function Home() {
             <ThreeDModel />
           </motion.div>
         </section>
-
-        {/* RESTANTE DO CÓDIGO SEM ALTERAÇÕES */}
 
         {/* SOBRE - com ondas circulares ao redor da imagem */}
         <section
@@ -560,7 +561,7 @@ export default function Home() {
               <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 animate-wave-vertical delay-2000"></div>
             </div>
 
-            <h3 className="text-3xl font-bold text-center mb-8 text-white relative z-10">Entre em Contato</h3>
+            <h3 className="text-3xl font-bold text-center mb-8 text-white relative z-10">{t.contactTitle}</h3>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
