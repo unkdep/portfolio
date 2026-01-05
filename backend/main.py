@@ -7,7 +7,9 @@ import os
 
 app = FastAPI()
 
+# =========================
 # CORS (ok para portfólio)
+# =========================
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # em produção real poderia restringir
@@ -15,12 +17,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Caminhos absolutos (IMPORTANTE para Render)
+# ======================================
+# Caminhos absolutos (IMPORTANTE p/ deploy)
+# ======================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_NAME = os.path.join(BASE_DIR, "downloads.db")
 CV_PATH = os.path.join(BASE_DIR, "cv.pdf")
 
-
+# =========================
+# Inicialização do banco
+# =========================
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -35,10 +41,21 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 init_db()
 
+# ======================================
+# Rota raiz (OPCIONAL – evita confusão)
+# ======================================
+@app.get("/")
+def root():
+    return {
+        "status": "API online",
+        "endpoint_download": "/download-cv"
+    }
 
+# =========================
+# Download do currículo
+# =========================
 @app.get("/download-cv")
 async def download_cv(request: Request):
     ip = request.client.host if request.client else "unknown"
