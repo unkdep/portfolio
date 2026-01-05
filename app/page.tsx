@@ -6,8 +6,6 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Navbar from "./components/Navbar";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 const translations = {
   pt: {
     nav: ["Início", "Sobre", "Experiência", "Tecnologias", "Projetos", "Contato"],
@@ -243,9 +241,9 @@ export default function Home() {
             <p className="mt-6 text-gray-400 leading-relaxed">{t.heroDescription}</p>
             <div className="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
               <a
-                href={`${API_URL}/download-cv`}
+                href="/rafael-cv.pdf"
                 target="_blank"
-                rel="noopener noreferrer"
+                download="rafael-cv.pdf"
                 className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded-lg shadow-lg transition"
               >
                 <FileDown className="w-5 h-5" />
@@ -495,7 +493,7 @@ export default function Home() {
                     <img
                       src={project.image}
                       alt={typeof project.name === "string" ? project.name : "Projeto"}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   ) : (
                     <div className="w-full h-48 bg-gray-700 flex items-center justify-center text-gray-500 text-sm rounded-xl">
@@ -513,7 +511,9 @@ export default function Home() {
                   >
                     {project.name || "Em Breve"}
                   </h4>
-                  <p className="text-gray-300 text-center text-base leading-relaxed">{typeof project.desc === "string" ? project.desc : project.desc}</p>
+                  <p className="text-gray-300 text-center text-base leading-relaxed">
+                    {typeof project.desc === "string" ? project.desc : project.desc}
+                  </p>
                   {project.techs && project.techs.length > 0 && (
                     <div className="flex flex-wrap gap-2 justify-center pt-2">
                       {project.techs.map((tech, tIdx) => (
