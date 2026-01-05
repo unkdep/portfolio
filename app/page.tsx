@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Navbar from "./components/Navbar";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const translations = {
   pt: {
     nav: ["Início", "Sobre", "Experiência", "Tecnologias", "Projetos", "Contato"],
@@ -215,7 +217,7 @@ export default function Home() {
       </Head>
       <main
         className="min-h-screen text-white px-6 relative overflow-x-hidden scroll-smooth"
-        style={{ backgroundColor: "#121212" }} // fundo cinza escuro, mobile e desktop
+        style={{ backgroundColor: "#121212" }}
       >
         {/* Navbar com activeSection */}
         <Navbar lang={lang} setLang={setLang} activeSection={activeSection} />
@@ -241,7 +243,7 @@ export default function Home() {
             <p className="mt-6 text-gray-400 leading-relaxed">{t.heroDescription}</p>
             <div className="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
               <a
-                href="https://portfolio-backend.onrender.com/download-cv"
+                href={`${API_URL}/download-cv`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 px-5 py-2 rounded-lg shadow-lg transition"
