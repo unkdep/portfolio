@@ -562,8 +562,13 @@ const PROJECTS = [
   {name:"Barbearia",cat:"OBJ-C002",mag:"8.1",
    desc:"Website elegante para barbearia local com foco em agendamento online e apresentação de serviços.",
    descEn:"Elegant website for a local barbershop focused on online booking and services.",
-   link:"https://example.com/barbearia",techs:["Next.js","TailwindCSS","React"],
+   link:"https://thiagoygor.vercel.app/",techs:["HTML5","CSS3"],
    image:"/barbearia-thumb.png",color:"#7a9e8a"},
+  {name:"Véu de Íris",cat:"OBJ-C003",mag:"6.8",
+   desc:"Landing page místico-elegante para leitora de tarot — apresentação de serviços, energia e agendamento.",
+   descEn:"Mystical and elegant landing page for a tarot reader — services, energy and booking.",
+   link:"https://tarotvenus.vercel.app/",techs:["React","TypeScript","Vite"],
+   image:"/arcana_portfolio_cover.png/",color:"#9b7ecb"},
 ];
 
 // ── Star Field ──
