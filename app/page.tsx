@@ -20,7 +20,6 @@ function TelescopeCursor({th}:{th:any}){
 
     const onMove=(e:MouseEvent)=>{
       pos.current={x:e.clientX,y:e.clientY};
-      // spawn star particle
       if(Math.random()>0.38){
         trail.current.push({
           x:e.clientX+(Math.random()-0.5)*10,
@@ -37,7 +36,6 @@ function TelescopeCursor({th}:{th:any}){
       ctx.clearRect(0,0,c.width,c.height);
       const {x,y}=pos.current;
 
-      // — trail particles —
       trail.current = trail.current.filter(p=>p.op>0.04);
       trail.current.forEach(p=>{
         ctx.save();
@@ -48,22 +46,17 @@ function TelescopeCursor({th}:{th:any}){
         p.op*=0.88; p.y-=0.18;
       });
 
-      // — crosshair reticle —
       const sz=18, gap=5;
       ctx.save();
       ctx.strokeStyle=th.accentHi; ctx.lineWidth=1.2;
       ctx.shadowColor=th.accent; ctx.shadowBlur=6;
       ctx.globalAlpha=0.9;
-      // horizontal lines
       ctx.beginPath(); ctx.moveTo(x-sz,y); ctx.lineTo(x-gap,y); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(x+gap,y); ctx.lineTo(x+sz,y); ctx.stroke();
-      // vertical lines
       ctx.beginPath(); ctx.moveTo(x,y-sz); ctx.lineTo(x,y-gap); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(x,y+gap); ctx.lineTo(x,y+sz); ctx.stroke();
-      // center dot
       ctx.beginPath(); ctx.arc(x,y,1.8,0,Math.PI*2);
       ctx.fillStyle=th.accentHi; ctx.fill();
-      // outer circle
       ctx.globalAlpha=0.35; ctx.lineWidth=0.7;
       ctx.beginPath(); ctx.arc(x,y,sz+4,0,Math.PI*2); ctx.stroke();
       ctx.restore();
@@ -82,9 +75,6 @@ function TelescopeCursor({th}:{th:any}){
     style={{position:"fixed",inset:0,zIndex:999,pointerEvents:"none"}}/>;
 }
 
-// ══════════════════════════════════════════════════════
-// 2. SPACE RADIO AUDIO (Web Audio API — sem arquivos)
-// ══════════════════════════════════════════════════════
 // ══════════════════════════════════════════════════════
 // PORTFOLIO AMBIENT AUDIO — subtle space background
 // ══════════════════════════════════════════════════════
@@ -116,7 +106,6 @@ function useAmbientAudio(){
     master.gain.linearRampToValueAtTime(0.18, ctx.currentTime+4);
     ctxRef.current=ctx; masterRef.current=master; activeRef.current=true;
 
-    // ── Reverb convolver (simulate space) ──
     const makeReverb=()=>{
       const len=ctx.sampleRate*3.5;
       const buf=ctx.createBuffer(2,len,ctx.sampleRate);
@@ -130,8 +119,6 @@ function useAmbientAudio(){
     const reverbGain=ctx.createGain(); reverbGain.gain.value=0.55;
     reverb.connect(reverbGain); reverbGain.connect(master);
 
-    // ── Pentatonic melody — gentle, space-like ──
-    // Notes in Hz: A3 C4 D4 E4 G4 A4 C5 (pentatonic, dreamy)
     const scale=[220,261.6,293.7,329.6,392,440,523.3];
     let melodyStep=0;
     const playNote=()=>{
@@ -139,7 +126,6 @@ function useAmbientAudio(){
       const freq=scale[melodyStep % scale.length];
       melodyStep++;
       const osc=ctx.createOscillator();
-      // alternate between sine and triangle for color
       osc.type = melodyStep%3===0 ? "triangle" : "sine";
       osc.frequency.value=freq;
       const g=ctx.createGain();
@@ -155,7 +141,6 @@ function useAmbientAudio(){
     const melI=setInterval(playNote, 2200+Math.random()*1800);
     intervals.current.push(melI);
 
-    // ── Pad chord (A minor wash) ──
     [220,261.6,329.6,440].forEach((freq,i)=>{
       const osc=ctx.createOscillator(); osc.type="sine"; osc.frequency.value=freq;
       const detune=ctx.createOscillator(); detune.type="sine"; detune.frequency.value=freq*1.002;
@@ -164,7 +149,6 @@ function useAmbientAudio(){
       osc.start(); detune.start();
     });
 
-    // ── Sub breath (very low, 40Hz) ──
     const sub=ctx.createOscillator(); sub.type="sine"; sub.frequency.value=40;
     const lfo=ctx.createOscillator(); lfo.type="sine"; lfo.frequency.value=0.06;
     const lfoG=ctx.createGain(); lfoG.gain.value=3;
@@ -173,7 +157,6 @@ function useAmbientAudio(){
     sub.connect(subG); subG.connect(master);
     sub.start(); lfo.start();
 
-    // ── Crystal shimmer tones (high harmonics, very soft) ──
     const shimmer=()=>{
       if(!activeRef.current) return;
       const freq=1800+Math.random()*2400;
@@ -253,24 +236,20 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
   const rafRef    = useRef(0);
   const audioRef  = useRef<{ctx:AudioContext;master:GainNode;stop:()=>void}|null>(null);
 
-  // Generate stable star data
   const stars = useMemo(()=>Array.from({length:280},(_,i)=>({
     x: Math.random(), y: Math.random(),
-    r: Math.pow(Math.random(),2)*2.8+0.3,   // power curve — mostly small, few big
-    speed: Math.random()*0.00015+0.00003,    // very slow drift
+    r: Math.pow(Math.random(),2)*2.8+0.3,
+    speed: Math.random()*0.00015+0.00003,
     angle: Math.random()*Math.PI*2,
     twinkleSpd: Math.random()*0.012+0.004,
     twinklePh: Math.random()*Math.PI*2,
     bright: Math.random()>0.88,
-    // blue-white color variation
-    hue: Math.floor(Math.random()*3),        // 0=white, 1=blue-white, 2=warm
-    flash: Math.random()>0.97,               // rare flash stars
+    hue: Math.floor(Math.random()*3),
+    flash: Math.random()>0.97,
   })),[]);
 
-  // Shooting stars
   const shooters = useRef<{x:number;y:number;vx:number;vy:number;life:number;maxLife:number;w:number}[]>([]);
 
-  // Deep space ambient audio
   useEffect(()=>{
     if(!active){ audioRef.current?.stop(); audioRef.current=null; return; }
     const AudioCtx=window.AudioContext||(window as any).webkitAudioContext;
@@ -278,20 +257,17 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
     const master=ctx.createGain(); master.gain.value=0; master.connect(ctx.destination);
     master.gain.linearRampToValueAtTime(0.3,ctx.currentTime+2);
 
-    // Reverb
     const rLen=ctx.sampleRate*4;
     const rBuf=ctx.createBuffer(2,rLen,ctx.sampleRate);
     for(let ch=0;ch<2;ch++){const d=rBuf.getChannelData(ch);for(let i=0;i<rLen;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/rLen,2);}
     const reverb=ctx.createConvolver(); reverb.buffer=rBuf;
     const revG=ctx.createGain(); revG.gain.value=0.7; reverb.connect(revG); revG.connect(master);
 
-    // Deep sine pads
     [40,80,120].forEach((f,i)=>{
       const o=ctx.createOscillator(); o.type="sine"; o.frequency.value=f;
       const g=ctx.createGain(); g.gain.value=[0.35,0.18,0.08][i];
       o.connect(g); g.connect(master); o.start();
     });
-    // Dreamy melody (pentatonic A)
     const mel=[220,261.6,293.7,329.6,392,440,523.3];
     let step=0;
     const ping=()=>{
@@ -313,7 +289,6 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
     return()=>{stop();};
   },[active]);
 
-  // Canvas animation
   useEffect(()=>{
     if(!active){ cancelAnimationFrame(rafRef.current); return; }
     const c=canvasRef.current; if(!c) return;
@@ -325,15 +300,12 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
     let t=0;
     const draw=()=>{
       t+=0.012;
-      // Fade trail (not full clear — creates motion blur)
       ctx.fillStyle="rgba(4,6,12,0.18)";
       ctx.fillRect(0,0,W,H);
 
       const COLORS=["rgba(220,232,255,","rgba(180,210,255,","rgba(255,245,230,"];
 
-      // ── Draw stars ──
       stars.forEach(s=>{
-        // Slow drift
         s.x += Math.cos(s.angle)*s.speed;
         s.y += Math.sin(s.angle)*s.speed;
         if(s.x<0) s.x=1; if(s.x>1) s.x=0;
@@ -348,7 +320,6 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
         ctx.save();
         ctx.globalAlpha=tw;
 
-        // Bright stars get diffraction spikes
         if(s.bright || (s.flash && tw>0.5)){
           const len=s.r*(s.flash&&tw>0.5?20:10);
           const spikeAlpha=s.flash&&tw>0.5?0.9:0.55;
@@ -362,13 +333,11 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
             ctx.beginPath(); ctx.moveTo(cx-Math.cos(rad)*len,cy-Math.sin(rad)*len);
             ctx.lineTo(cx+Math.cos(rad)*len,cy+Math.sin(rad)*len); ctx.stroke();
           });
-          // Halo
           const halo=ctx.createRadialGradient(cx,cy,0,cx,cy,s.r*(s.flash&&tw>0.5?10:5));
           halo.addColorStop(0,col+"0.35)"); halo.addColorStop(1,col+"0)");
           ctx.fillStyle=halo; ctx.beginPath(); ctx.arc(cx,cy,s.r*(s.flash&&tw>0.5?10:5),0,Math.PI*2); ctx.fill();
         }
 
-        // Star core
         ctx.beginPath(); ctx.arc(cx,cy,s.r*(s.flash&&tw>0.5?1.8:1),0,Math.PI*2);
         ctx.shadowColor=col+"0.8)"; ctx.shadowBlur=s.bright?6:3;
         ctx.fillStyle=col+"1)"; ctx.fill();
@@ -376,7 +345,6 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
         ctx.restore();
       });
 
-      // ── Shooting stars (spawn occasionally) ──
       if(Math.random()>0.992){
         const angle=(Math.random()*0.4+0.1)*Math.PI;
         const spd=W*(0.008+Math.random()*0.012);
@@ -404,13 +372,11 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
 
       rafRef.current=requestAnimationFrame(draw);
     };
-    // Black initial fill
     ctx.fillStyle="#04060c"; ctx.fillRect(0,0,W||window.innerWidth,H||window.innerHeight);
     draw();
     return()=>{ window.removeEventListener("resize",resize); cancelAnimationFrame(rafRef.current); };
   },[active,stars]);
 
-  // ESC
   useEffect(()=>{
     if(!active) return;
     const fn=(e:KeyboardEvent)=>{if(e.key==="Escape")onClose();};
@@ -426,8 +392,6 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
           transition={{duration:1.6,ease:"easeInOut"}}
           style={{position:"fixed",inset:0,zIndex:500}}>
           <canvas ref={canvasRef} style={{position:"absolute",inset:0,width:"100%",height:"100%"}}/>
-
-          {/* Close hint */}
           <motion.div
             initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}
             transition={{delay:2,duration:1}}
@@ -440,8 +404,6 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
             }}>
             <span>[ CLIQUE OU ESC PARA SAIR ]</span>
           </motion.div>
-
-          {/* Audio bars */}
           <motion.div
             initial={{opacity:0}} animate={{opacity:1}} transition={{delay:2.5,duration:1}}
             style={{position:"absolute",bottom:32,right:32,display:"flex",alignItems:"flex-end",gap:3,pointerEvents:"none"}}>
@@ -452,8 +414,6 @@ function DeepSpaceOverlay({active,onClose,th}:{active:boolean;onClose:()=>void;t
                 style={{width:3,height:16,borderRadius:2,background:"rgba(140,190,255,0.45)",transformOrigin:"bottom"}}/>
             ))}
           </motion.div>
-
-          {/* Clickable overlay (whole screen) */}
           <div onClick={onClose} style={{position:"absolute",inset:0,cursor:"none"}}/>
         </motion.div>
       )}
@@ -568,7 +528,12 @@ const PROJECTS = [
    desc:"Landing page místico-elegante para leitora de tarot — apresentação de serviços, energia e agendamento.",
    descEn:"Mystical and elegant landing page for a tarot reader — services, energy and booking.",
    link:"https://tarotvenus.vercel.app/",techs:["React","TypeScript","Vite"],
-   image:"/arcana_portfolio_cover.png/",color:"#9b7ecb"},
+   image:"/arcana_portfolio_cover.png",color:"#9b7ecb"},
+  {name:"Yuki Ramen",cat:"OBJ-C004",mag:"7.8",
+   desc:"Landing page moderna para restaurante japonês especializado em ramen — cardápio, atmosfera e experiência gastronômica.",
+   descEn:"Modern landing page for a Japanese ramen restaurant — menu, atmosphere and dining experience.",
+   link:"https://yukiramen.vercel.app/",techs:["HTML5","CSS3"],
+   image:"/yuki-ramen-thumb.png",color:"#e85d5d"},
 ];
 
 // ── Star Field ──
@@ -596,7 +561,6 @@ function StarField({opacity,deepSpace}:{opacity:number;deepSpace:boolean}){
       t+=0.012;ctx.clearRect(0,0,W,H);
       const ds=dsRef.current;
       stars.forEach(s=>{
-        // In deep space: full brightness, faster twinkle, larger radius
         const twBase=ds ? s.op*(0.75+0.25*Math.sin(t*s.spd*500+s.ph)) : s.op*(0.5+0.5*Math.sin(t*s.spd*300+s.ph));
         const tw=ds ? Math.min(twBase*1.6,1) : twBase;
         const r=ds ? s.r*1.5 : s.r;
@@ -616,7 +580,6 @@ function StarField({opacity,deepSpace}:{opacity:number;deepSpace:boolean}){
           ctx.beginPath();ctx.moveTo(cx,cy-len);ctx.lineTo(cx,cy+len);ctx.stroke();
         }
         ctx.beginPath();ctx.arc(s.x*W,s.y*H,r,0,Math.PI*2);
-        // Deep space: warm white glow
         if(ds){
           ctx.shadowColor="rgba(220,227,232,0.9)";
           ctx.shadowBlur=s.bright?8:3;
@@ -666,7 +629,6 @@ function ConstellationMap({th,lang}:{th:typeof DARK;lang:string}){
     const draw=()=>{
       tRef.current+=0.018;const t=tRef.current;
       ctx.clearRect(0,0,W,H);
-      // edges
       EDGES.forEach(([a,b])=>{
         const pa=gp(TECHS[a],W,H),pb=gp(TECHS[b],W,H);
         const active=hovered!==null&&(hovered===a||hovered===b);
@@ -680,7 +642,6 @@ function ConstellationMap({th,lang}:{th:typeof DARK;lang:string}){
         }
         ctx.stroke();ctx.shadowBlur=0;ctx.setLineDash([]);
       });
-      // stars
       TECHS.forEach((tech,i)=>{
         const{x,y}=gp(tech,W,H);
         const isH=hovered===i;
@@ -826,7 +787,6 @@ function Navbar({t,th,theme,setTheme,lang,setLang,active,deepSpace,setDeepSpace,
       <div style={{display:"flex",gap:8,alignItems:"center"}}>
         <button onClick={()=>setTheme(theme==="dark"?"light":"dark")} style={{width:36,height:36,borderRadius:4,border:`1px solid ${th.border}`,background:th.inputBg,color:th.textMuted,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>{theme==="dark"?<Sun size={15}/>:<Moon size={15}/>}</button>
         <button onClick={()=>setLang(lang==="pt"?"en":"pt")} style={{padding:"6px 12px",borderRadius:4,border:`1px solid ${th.border}`,background:th.inputBg,color:th.accent,cursor:"none",fontFamily:"'Share Tech Mono',monospace",fontSize:11,letterSpacing:"0.12em",fontWeight:700}}>{lang==="pt"?"EN":"PT"}</button>
-        {/* Ambient sound toggle */}
         <motion.button
           title={audioOn ? (lang==="pt"?"Desligar som":"Mute audio") : (lang==="pt"?"Som ambiente":"Ambient sound")}
           onClick={()=>setAudioOn(!audioOn)}
@@ -841,14 +801,12 @@ function Navbar({t,th,theme,setTheme,lang,setLang,active,deepSpace,setDeepSpace,
             flexShrink:0,
           }}>
           {audioOn ? (
-            /* sound waves on */
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
             </svg>
           ) : (
-            /* sound off */
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
               <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
@@ -915,7 +873,7 @@ function SecLabel({text,th}:any){
   );
 }
 
-function Reveal({children,delay=0,x=0,y=32}:any){
+function Reveal({children,delay=0,x=0,y=32,style={}}:any){
   const ref=useRef<HTMLDivElement>(null);
   const[vis,setVis]=useState(false);
   useEffect(()=>{
@@ -923,7 +881,7 @@ function Reveal({children,delay=0,x=0,y=32}:any){
     const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting)setVis(true);},{threshold:0.08});
     obs.observe(el);return()=>obs.disconnect();
   },[]);
-  return(<motion.div ref={ref} initial={{opacity:0,x,y}} animate={vis?{opacity:1,x:0,y:0}:{}} transition={{duration:0.75,delay,ease:[0.16,1,0.3,1]}}>{children}</motion.div>);
+  return(<motion.div ref={ref} initial={{opacity:0,x,y}} animate={vis?{opacity:1,x:0,y:0}:{}} transition={{duration:0.75,delay,ease:[0.16,1,0.3,1]}} style={style}>{children}</motion.div>);
 }
 
 function Card({children,th,accent,style={}}:any){
@@ -1002,7 +960,9 @@ export default function Home(){
       .obs-inp{width:100%;background:${th.inputBg};border:1px solid ${th.border};border-radius:4px;padding:13px 16px;color:${th.text};font-family:'Outfit',sans-serif;font-size:15px;outline:none;resize:none;transition:border-color 0.2s,box-shadow 0.2s;}
       .obs-inp::placeholder{color:${th.textFaint};font-size:14px;}
       .obs-inp:focus{border-color:${th.accent}88;box-shadow:0 0 0 2px ${th.accent}14;}
-      .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;}
+      .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:stretch;}
+      .proj-grid > *{display:flex;flex-direction:column;}
+      .proj-grid > * > *{flex:1;display:flex;flex-direction:column;}
       .about-layout{display:grid;grid-template-columns:auto 1fr;gap:clamp(2rem,5vw,4rem);align-items:start;}
       @media(max-width:640px){.about-layout{grid-template-columns:1fr;justify-items:center;}}
     `}</style>
@@ -1020,7 +980,6 @@ export default function Home(){
       {/* ══ HERO ══ */}
       <div id="inicio" className="hero-outer">
         <div className="hero-grid">
-          {/* Text */}
           <div>
             <motion.div initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{delay:0.15}}
               style={{display:"flex",alignItems:"center",gap:10,marginBottom:28}}>
@@ -1088,7 +1047,6 @@ export default function Home(){
                     <line x1="110" y1="85" x2="170" y2="85" stroke={th.accent} strokeWidth="0.6" opacity="0.5"/>
                   </svg>
                 </div>
-                {/* Avatar - avatarBg garante visibilidade no modo light */}
                 <div style={{width:170,height:170,borderRadius:"50%",overflow:"hidden",border:`2.5px solid ${th.accent}66`,boxShadow:`0 0 24px ${th.accent}30`,position:"relative",zIndex:2,background:th.avatarBg}}>
                   <img src="/iconesobre.png" alt="Rafael" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
                 </div>
@@ -1159,7 +1117,6 @@ export default function Home(){
                 style={{position:"absolute",left:7,top:28,width:18,height:18,borderRadius:"50%",background:th.accent}}/>
               <Card th={th} style={{padding:"32px"}}>
                 <div style={{display:"flex",gap:24,flexWrap:"wrap",alignItems:"flex-start"}}>
-                  {/* AGCO logo — fundo escuro fixo para logo branca ficar visível em ambos os temas */}
                   <div style={{width:88,height:88,borderRadius:6,flexShrink:0,background:"#1a2535",padding:10,border:`1px solid ${th.border}`,display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 16px rgba(0,0,0,0.25)"}}>
                     <img src="/logo-agco.png" alt="AGCO" style={{width:"100%",height:"100%",objectFit:"contain"}}/>
                   </div>
@@ -1216,16 +1173,16 @@ export default function Home(){
           <Reveal delay={0.05}><h2 style={{fontSize:"clamp(2.2rem,5vw,3.2rem)",fontWeight:800,letterSpacing:"-0.02em",textAlign:"center",marginBottom:52,color:th.text}}>{t.projTitle}</h2></Reveal>
           <div className="proj-grid">
             {PROJECTS.map((proj,idx)=>(
-              <Reveal key={idx} delay={idx*0.1}>
-                <Card th={th} accent={proj.color} style={{display:"flex",flexDirection:"column",overflow:"hidden"}}>
+              <Reveal key={idx} delay={idx*0.1} style={{height:"100%"}}>
+                <Card th={th} accent={proj.color} style={{display:"flex",flexDirection:"column",overflow:"hidden",height:"100%"}}>
                   <div style={{padding:"9px 16px",borderBottom:`1px solid ${th.border}`,display:"flex",justifyContent:"space-between",background:`${proj.color}0a`}}>
                     <span style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,letterSpacing:"0.18em",color:proj.color}}>{proj.cat}</span>
                     <span style={{fontFamily:"'Share Tech Mono',monospace",fontSize:10,color:th.textFaint}}>MAG {proj.mag}</span>
                   </div>
-                  <div style={{position:"relative",height:200,overflow:"hidden"}}>
+                  <div style={{position:"relative",height:240,overflow:"hidden",background:"#08060a"}}>
                     {proj.image?(
-                      <motion.img whileHover={{scale:1.05}} transition={{duration:0.4}}
-                        src={proj.image} alt={proj.name} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+                      <motion.img whileHover={{scale:1.03}} transition={{duration:0.4}}
+                        src={proj.image} alt={proj.name} style={{width:"100%",height:"100%",objectFit:"contain",display:"block"}}/>
                     ):(
                       <div style={{width:"100%",height:"100%",background:`${proj.color}0e`,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Share Tech Mono',monospace",fontSize:11,color:th.textFaint}}>EM CATALOGAÇÃO</div>
                     )}
