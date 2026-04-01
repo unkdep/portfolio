@@ -1246,15 +1246,45 @@ function Projetos({ t }: { t: Translation }) {
 }
 
 function Contato({ t }: { t: Translation }) {
-  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const handleSubmit = () => {
-    if (state !== "idle") return;
-    setState("sending");
-    setTimeout(() => {
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!form.name || !form.email || !form.message) return;
+
+    try {
+      setState("sending");
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Erro ao enviar.");
+      }
+
       setState("sent");
+      setForm({ name: "", email: "", message: "" });
+
       setTimeout(() => setState("idle"), 4000);
-    }, 2000);
+    } catch (error) {
+      console.error(error);
+      setState("error");
+      setTimeout(() => setState("idle"), 4000);
+    }
   };
 
   return (
@@ -1270,32 +1300,48 @@ function Contato({ t }: { t: Translation }) {
 
         <Reveal delay={0.1}>
           <GlassCard style={{ padding: 30 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
-              {[
-                { type: "text", placeholder: t.namePh },
-                { type: "email", placeholder: t.emailPh },
-              ].map(({ type, placeholder }) => (
-                <input
-                  key={placeholder}
-                  type={type}
-                  placeholder={placeholder}
-                  style={{
-                    width: "100%",
-                    padding: "12px 15px",
-                    borderRadius: 10,
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.07)",
-                    color: "#e2e8f0",
-                    fontSize: 14,
-                    outline: "none",
-                    fontFamily: "inherit",
-                  }}
-                />
-              ))}
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 13 }}>
+              <input
+                type="text"
+                placeholder={t.namePh}
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: "12px 15px",
+                  borderRadius: 10,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  color: "#e2e8f0",
+                  fontSize: 14,
+                  outline: "none",
+                  fontFamily: "inherit",
+                }}
+              />
+
+              <input
+                type="email"
+                placeholder={t.emailPh}
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                style={{
+                  width: "100%",
+                  padding: "12px 15px",
+                  borderRadius: 10,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  color: "#e2e8f0",
+                  fontSize: 14,
+                  outline: "none",
+                  fontFamily: "inherit",
+                }}
+              />
 
               <textarea
                 rows={4}
                 placeholder={t.msgPh}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
                 style={{
                   width: "100%",
                   padding: "12px 15px",
@@ -1311,7 +1357,8 @@ function Contato({ t }: { t: Translation }) {
               />
 
               <motion.button
-                onClick={handleSubmit}
+                type="submit"
+                disabled={state === "sending"}
                 whileHover={state === "idle" ? { scale: 1.01 } : {}}
                 whileTap={state === "idle" ? { scale: 0.98 } : {}}
                 style={{
@@ -1319,44 +1366,71 @@ function Contato({ t }: { t: Translation }) {
                   padding: "13px",
                   borderRadius: 10,
                   border: "none",
-                  cursor: state === "idle" ? "pointer" : "default",
+                  cursor: state === "sending" ? "not-allowed" : "pointer",
                   color: "#fff",
                   fontFamily: "monospace",
                   fontSize: 12,
                   letterSpacing: "0.12em",
                   fontWeight: 700,
-                  background: state === "sent" ? "linear-gradient(135deg, #059669, #047857)" : "linear-gradient(135deg, #3b82f6, #1d4ed8)",
-                  boxShadow: state === "sent" ? "0 0 28px rgba(5,150,105,0.3)" : "0 0 28px rgba(59,130,246,0.22)",
+                  background:
+                    state === "sent"
+                      ? "linear-gradient(135deg, #059669, #047857)"
+                      : state === "error"
+                      ? "linear-gradient(135deg, #dc2626, #b91c1c)"
+                      : "linear-gradient(135deg, #3b82f6, #1d4ed8)",
+                  boxShadow:
+                    state === "sent"
+                      ? "0 0 28px rgba(5,150,105,0.3)"
+                      : state === "error"
+                      ? "0 0 28px rgba(220,38,38,0.25)"
+                      : "0 0 28px rgba(59,130,246,0.22)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 8,
                   marginTop: 4,
+                  opacity: state === "sending" ? 0.9 : 1,
                 }}
               >
                 {state === "idle" && t.sendBtn}
                 {state === "sending" && (
                   <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 0.6, repeat: Infinity }}>
+                    <motion.span
+                      animate={{ opacity: [1, 0.3, 1] }}
+                      transition={{ duration: 0.6, repeat: Infinity }}
+                    >
                       ◈
                     </motion.span>
                     {t.sending}
                   </span>
                 )}
                 {state === "sent" && (
-                  <motion.span initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <motion.span
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
                     ✓ {t.sent}
                   </motion.span>
                 )}
+                {state === "error" && (
+                  <motion.span
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    ✕ ERRO AO ENVIAR
+                  </motion.span>
+                )}
               </motion.button>
-            </div>
+            </form>
           </GlassCard>
         </Reveal>
 
         <Reveal delay={0.2}>
           <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 22, flexWrap: "wrap" }}>
             {[
-              { href: "mailto:seuemail@gmail.com", Icon: Mail, label: "Email" },
+              { href: "mailto:raafael.enrico@gmail.com", Icon: Mail, label: "Email" },
               { href: "https://www.linkedin.com/in/rafaelunk", Icon: Linkedin, label: "LinkedIn" },
               { href: "https://github.com/unkdep", Icon: Github, label: "GitHub" },
             ].map(({ href, Icon, label }) => (
