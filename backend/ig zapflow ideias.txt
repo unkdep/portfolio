@@ -1,0 +1,256 @@
+Sim — e o ideal é você montar um feed que pareça marca séria de tecnologia, não perfil vazio improvisado.
+
+Pro ZapFlow360, eu faria um feed com 3 tipos de post:
+
+autoridade
+explicação
+conversão
+
+Assim ele não fica cru e também não vira só propaganda.
+
+Direção visual do feed
+
+Base visual:
+
+azul escuro quase preto
+azul neon / ciano
+verde em gradiente
+elementos de interface
+brilho suave
+cards glassmorphism
+prints estilizados de dashboard, chat, agenda, fluxos
+ícones de WhatsApp, calendário, IA, automação
+
+Estilo:
+
+moderno
+tecnológico
+limpo
+premium
+com cara de SaaS
+Paleta que combina com ZapFlow360
+fundo: #050B18
+azul escuro: #071326
+azul principal: #0EA5FF
+azul claro: #38BDF8
+verde principal: #34D399
+verde apoio: #22C55E
+branco: #F8FAFC
+cinza texto: #94A3B8
+O que postar para não ficar vazio
+1. Post institucional
+
+Esses dão “cara de marca”.
+
+Ideias
+Post de boas-vindas
+“Bem-vindo ao ZapFlow360”
+visual com logo, fundo tecnológico e frase curta
+O que é o ZapFlow360
+“Automatize seus agendamentos pelo WhatsApp com IA”
+visual com mockup de chat + calendário
+Missão da marca
+“Menos bagunça. Mais agendamentos.”
+frase forte em layout bonito
+Para quem é
+clínicas
+estética
+consultórios
+barbearias
+negócios com agenda
+2. Posts de problema e solução
+
+Esses são muito bons porque geram identificação.
+
+Ideias
+Seu WhatsApp virou bagunça?
+várias mensagens perdidas
+cliente sem resposta
+horário confuso
+3 sinais de que seu agendamento precisa de automação
+demora para responder
+conflitos de horário
+cliente esquecendo atendimento
+Antes e depois do ZapFlow360
+antes: atendimento bagunçado
+depois: fluxo organizado com IA
+Você ainda agenda no braço?
+post provocativo, elegante
+3. Posts explicativos
+
+Esses fazem o perfil parecer útil.
+
+Ideias
+Como funciona o ZapFlow360
+cliente chama
+IA responde
+consulta horário
+agenda automaticamente
+O que é MCP na prática
+explicar de forma simples
+“é o que permite a IA agir de verdade”
+O que é webhook
+“é o que conecta a agenda ao sistema”
+Como a IA agenda pelo WhatsApp
+carrossel mostrando a lógica
+Como funcionam os lembretes automáticos
+15 min antes
+1h antes
+1 dia antes
+Como o CRM ajuda no acompanhamento
+mostrar funil simples de agendamento
+4. Posts de funcionalidades
+
+Esses ajudam a vender sem parecer venda direta.
+
+Ideias
+Agendamento automático
+Assistente virtual com IA
+Agenda inteligente
+Integração via webhook
+Confirmação de horários
+Lembretes automáticos
+CRM visual
+Atendimento centralizado
+WhatsApp com automação
+Fluxos personalizados
+5. Posts de autoridade
+
+Esses deixam o perfil mais profissional.
+
+Ideias
+Por que negócios perdem clientes no WhatsApp
+O custo de responder tarde
+O que um atendimento organizado transmite
+Experiência do cliente começa no primeiro “oi”
+Automação não é frieza, é organização
+IA no atendimento: quando usar e como usar
+6. Posts em carrossel
+
+Esses são perfeitos pro começo.
+
+Ideias
+5 erros no agendamento pelo WhatsApp
+6 vantagens de automatizar sua agenda
+Passo a passo: da mensagem ao agendamento
+O que sua empresa ganha com confirmação automática
+Como evitar faltas com lembretes
+Como profissionalizar seu atendimento sem aumentar equipe
+7. Posts de prova visual
+
+Mesmo sem clientes ainda, dá para usar mockups.
+
+Ideias
+Tela do dashboard
+Tela do chat
+Tela da agenda
+Tela do fluxo
+Tela do CRM
+Tela do assistente virtual
+
+Mas estilizados, não print cru.
+
+Melhor estrutura para o começo do feed
+
+Eu faria os 9 primeiros posts assim:
+
+Linha 1
+Bem-vindo ao ZapFlow360
+O que é o ZapFlow360
+Seu WhatsApp virou bagunça?
+Linha 2
+Como funciona o agendamento automático
+Assistente virtual com IA
+Agenda inteligente
+Linha 3
+Webhook + MCP na prática
+Lembretes automáticos
+Antes e depois do atendimento
+
+Isso já deixa o feed com:
+
+identidade
+utilidade
+explicação
+venda indireta
+Ideias de formatos visuais
+Formato 1: capa forte com frase
+
+Exemplo:
+
+fundo azul escuro
+gradiente azul/verde
+texto grande
+ícone pequeno
+detalhe de interface ao fundo
+
+Bom para:
+
+frases
+problemas
+autoridade
+Formato 2: carrossel explicativo
+
+Slide 1:
+
+título forte
+
+Slides seguintes:
+
+blocos curtos
+ícones
+setas
+cards
+
+Bom para:
+
+explicar o sistema
+ensinar algo
+mostrar benefícios
+Formato 3: mockup de interface
+notebook
+tela do sistema
+balões de conversa
+calendário
+
+Bom para:
+
+funcionalidades
+posts de prova visual
+posts premium
+Conteúdos prontos que combinam com a marca
+
+Aqui vão ideias de títulos reais para você já pedir imagem em outro chat:
+
+Bem-vindo ao ZapFlow360
+Automatize seus agendamentos no WhatsApp
+Seu atendimento está organizado ou improvisado?
+IA que atende e agenda de verdade
+Menos mensagens perdidas. Mais clientes confirmados.
+Agenda inteligente para negócios modernos
+Confirmação automática de horários
+Lembretes automáticos que reduzem faltas
+CRM visual para acompanhar agendamentos
+Do primeiro oi até o horário confirmado
+Automação com cara de tecnologia premium
+Mais organização. Menos caos.
+Atendimento moderno começa no WhatsApp
+O cliente chama. A IA responde. O sistema agenda.
+Profissionalize sua operação com ZapFlow360
+Minha recomendação prática
+
+Começa com 12 posts:
+
+3 institucionais
+3 problemas/soluções
+3 funcionalidades
+3 carrosséis educativos
+
+Assim o perfil já nasce com volume e coerência.
+
+Se quiser, eu posso montar pra você a grade completa de 12 posts, com:
+
+título de cada post
+legenda curta
+ideia visual de cada imagem
+ordem perfeita do feed.

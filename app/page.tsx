@@ -182,16 +182,25 @@ const T: Record<Lang, Translation> = {
     projects: [
       {
         id: "01",
+        name: "FlowAgenda",
+        desc: "Sistema de agendamento com foco em produto real, gestão de horários, clientes e profissionais, com estrutura preparada para automações e integrações inteligentes.",
+        link: "https://flowagenda-six.vercel.app/",
+        techs: ["Next.js", "TypeScript", "Python", "Django", "REST API"],
+        image: "/flowagenda.png",
+        accent: "#38bdf8",
+        featured: true,
+      },
+      {
+        id: "02",
         name: "ZapFlow360",
         desc: "Plataforma SaaS completa de automatização de agendamentos pelo WhatsApp com IA, fluxos inteligentes e painel de gestão premium.",
         link: "https://zapflow360.vercel.app/",
         techs: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS"],
         image: "/zapflow-360.png",
         accent: "#34d399",
-        featured: true,
       },
       {
-        id: "02",
+        id: "03",
         name: "CGN Construções",
         desc: "Landing page moderna e responsiva para empresa de serralheria e estruturas metálicas.",
         link: "https://cgnconstrucoes.vercel.app/",
@@ -200,7 +209,7 @@ const T: Record<Lang, Translation> = {
         accent: "#3b82f6",
       },
       {
-        id: "03",
+        id: "04",
         name: "Barbearia",
         desc: "Website elegante para barbearia local com foco em agendamento online e apresentação de serviços.",
         link: "https://thiagoygor.vercel.app/",
@@ -209,7 +218,7 @@ const T: Record<Lang, Translation> = {
         accent: "#60a5fa",
       },
       {
-        id: "04",
+        id: "05",
         name: "Véu de Íris",
         desc: "Landing page para leitora de tarot — apresentação de serviços, energia e agendamento.",
         link: "https://tarotvenus.vercel.app/",
@@ -218,7 +227,7 @@ const T: Record<Lang, Translation> = {
         accent: "#818cf8",
       },
       {
-        id: "05",
+        id: "06",
         name: "Yuki Ramen",
         desc: "Landing page para restaurante japonês especializado em ramen — cardápio e experiência gastronômica.",
         link: "https://yukiramen.vercel.app/",
@@ -312,16 +321,25 @@ const T: Record<Lang, Translation> = {
     projects: [
       {
         id: "01",
+        name: "FlowAgenda",
+        desc: "Scheduling system designed as a real product, focused on managing appointments, clients and professionals, with a foundation ready for smart automations and integrations.",
+        link: "https://flowagenda-six.vercel.app/",
+        techs: ["Next.js", "TypeScript", "Python", "Django", "REST API"],
+        image: "/flowagenda.png",
+        accent: "#38bdf8",
+        featured: true,
+      },
+      {
+        id: "02",
         name: "ZapFlow360",
         desc: "Full SaaS platform for WhatsApp scheduling automation with AI, smart flows, and a premium management dashboard.",
         link: "https://zapflow360.vercel.app/",
         techs: ["React", "TypeScript", "Vite", "Framer Motion", "Tailwind CSS"],
         image: "/zapflow-360.png",
         accent: "#34d399",
-        featured: true,
       },
       {
-        id: "02",
+        id: "03",
         name: "CGN Construções",
         desc: "Modern responsive landing page for a metalwork and steel structures company.",
         link: "https://cgnconstrucoes.vercel.app/",
@@ -330,7 +348,7 @@ const T: Record<Lang, Translation> = {
         accent: "#3b82f6",
       },
       {
-        id: "03",
+        id: "04",
         name: "Barbershop",
         desc: "Elegant website for a local barbershop focused on online booking and service presentation.",
         link: "https://thiagoygor.vercel.app/",
@@ -339,7 +357,7 @@ const T: Record<Lang, Translation> = {
         accent: "#60a5fa",
       },
       {
-        id: "04",
+        id: "05",
         name: "Véu de Íris",
         desc: "Mystical landing page for a tarot reader — services, energy and scheduling.",
         link: "https://tarotvenus.vercel.app/",
@@ -348,7 +366,7 @@ const T: Record<Lang, Translation> = {
         accent: "#818cf8",
       },
       {
-        id: "05",
+        id: "06",
         name: "Yuki Ramen",
         desc: "Modern landing page for a Japanese ramen restaurant — menu, atmosphere and dining experience.",
         link: "https://yukiramen.vercel.app/",
@@ -367,6 +385,7 @@ const SKILLS = [
   { name: "Node.js", level: 82, color: "#60a5fa" },
   { name: "SQL", level: 75, color: "#94a3b8" },
   { name: "HTML5 & CSS3", level: 80, color: "#7dd3fc" },
+  { name: "Python", level: 28, color: "#facc15" },
 ];
 
 const TECHS_GRID = [
